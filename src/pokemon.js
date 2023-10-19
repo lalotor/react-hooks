@@ -111,6 +111,7 @@ function PokemonForm({
   initialPokemonName = externalPokemonName || '',
   onSubmit,
 }) {
+  const pokemonNameRef = React.useRef()
   const [pokemonName, setPokemonName] = React.useState(initialPokemonName)
 
   // this is generally not a great idea. We're synchronizing state when it is
@@ -122,6 +123,7 @@ function PokemonForm({
     // is the same as the one we're managing, this will not trigger a re-render
     if (typeof externalPokemonName === 'string') {
       setPokemonName(externalPokemonName)
+      pokemonNameRef.current.focus()
     }
   }, [externalPokemonName])
 
@@ -176,6 +178,7 @@ function PokemonForm({
           placeholder="Pokemon Name..."
           value={pokemonName}
           onChange={handleChange}
+          ref={pokemonNameRef}
         />
         <button type="submit" disabled={!pokemonName.length}>
           Submit
